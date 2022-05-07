@@ -27,8 +27,9 @@ paths:
             application/json:
               schema:
                 type: array
+                uniqueItems: true
                 items:
-                  type: string
+                  $ref: '#/components/schemas/playerPartly'
         '404':
           description: User not found
   /player:
@@ -42,7 +43,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/player'
+              $ref: '#/components/schemas/playerFull'
       responses:
         '201':
           description: OK
@@ -68,16 +69,29 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/player'
+                $ref: '#/components/schemas/playerFull'
         '404':
           description: User not found
   /Teams:
-    get:
+    post:
       tags:
         - Teams
       summary: Get Teams
       description: Get teams for Monday Football
       operationId: getTeams
+      parameters:
+        - in: body
+          name: name
+          description: "names of players for this monday"
+          required: true
+          schema:
+            type: array
+            uniqueItems: true
+            minItems: 14
+            maxItems: 21
+            items:
+              type: string
+            example: ["Hod", "Omer", "Ran"]
       responses:
         '200':
           description: Teams created
@@ -91,14 +105,24 @@ paths:
           description: Cannot create Teams
 components:
   schemas:
-    player:
+    playerPartly:
       type: object
       properties:
         name:
           type: string
-        score:
+        isMember:
+          type: boolean
+    playerFull:
+      type: object
+      properties:
+        name:
+          type: string
+        realRating:
           type: number
           format: double
+        gradeThisWeek:
+          type: number
+          format: int32
         position:
           type: string
           enum:
@@ -118,9 +142,3 @@ components:
           items:
             type:
               object
-        hasOffence:
-          type: boolean
-        hasDefence:
-          type: boolean
-
-

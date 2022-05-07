@@ -1,38 +1,24 @@
 import math
+import os.path
 import random
 import csv
 import json
 import pprint
 from copy import deepcopy
+from FootballSchemas import *
+import os.path as path
 
-PLAYERS = []
 COLORS = ['RED', 'BLUE', 'GREEN']
 MAX_DIFF_BETWEEN_EQUAL_TEAMS = 0.5
 MAX_DIFF_BETWEEN_NOT_EQUAL_TEAMS = 0.5
 
-
-class Player:
-    def __init__(self):
-        self.name = ""
-        self.real_level = 2.5
-        self.match_level = 2.5
-        self.role = ""
-        self.gk = 1
-
-
-class Team:
-    def __init__(self):
-        self.defence = False
-        self.offence = False
-        self.players = []
-        self.team_level = 0
-
-
 class Football:
-    def __init__(self, path):
-        self.players_levels = {}
+    def __init__(self, file=path.join(path.curdir,'PlayersDB','Players.csv')):
         self.teams = {}
-        self.path_to_file = path
+        self.db_path = file
+        self.weekly_players = []
+        self.all_players = []
+        self.players_levels = {}
 
     def clear(self):
         for team in self.teams:
@@ -41,36 +27,57 @@ class Football:
 
     def create_teams(self):
         teams_size = 3
-        if len(PLAYERS) < 18:
+        if len(self.weekly_players) < 18:
             teams_size = 2
 
         for i in range(1, teams_size + 1):
             self.teams[str(i)] = Team()
 
-    def read_CSV(self, file):
-        players_file = open(file, "r", encoding="utf8")
+    def generate_weekly_players(self):
+        test_file = path.join(path.curdir, 'PlayersDB', 'test.csv')
+        players_file = open(test_file, "r", encoding="utf8")
         read = csv.reader(players_file)
         for row in read:
-            if row[3].lower() == "v":
-                p = Player()
-                p.name = row[0]
-                p.real_level = float(row[1])
-                p.role = row[2]
-                PLAYERS.append(p)
-        PLAYERS.sort(key=self.sort_by_level, reverse=True)
-        self.create_teams()
+            name = row[0]
+            for p in self.all_players:
+                if name == p.name:
+                    self.weekly_players.append(p)
+                    self.print_player(p)
+
+    def fillWeeklyPlayers(self, weekly_players):
         i = 0
-        for p in PLAYERS:
+        for wp in weekly_players:
+            for p in self.all_players:
+                if wp == p.name:
+                    self.weekly_players.append(p)
+
+    def read_CSV(self):
+        players_file = open(self.db_path, "r", encoding="utf8")
+        read = csv.reader(players_file)
+        next(read, None)
+        for row in read:
+            p = Player()
+            p.name = row[0]
+            p.real_level = float(row[1])
+            p.role = row[2]
+            if row[3].lower() == "v":
+                p.is_member = True
+            self.all_players.append(p)
+        self.all_players.sort(key=self.sort_by_level, reverse=True)
+
+    def setMatchLevel(self):
+        i = 0
+        for p in self.weekly_players:
             p.match_level = int(i / len(self.teams)) + 1
             if p.match_level not in self.players_levels.keys():
                 self.players_levels[p.match_level] = []
             self.players_levels[p.match_level].append(p)
             i += 1
-
+    
     def sort_by_level(self, player):
         return player.real_level
 
-    def print_player(self, p, color):
+    def print_player(self, p, color='BLUE'):
         t = "Player [%s] in role [%s] with level [%s] will be goalkeeper number: [%d]" % (
         p.name, p.role, p.real_level, p.gk)
         self.print_color(t, color)
@@ -103,7 +110,7 @@ class Football:
                 min_team = name
         return min_team
 
-    def get_all_players_in_level(self, level):
+    def get_players_in_level(self, level):
         # in case there is no level 7 because team is only 6
         if level not in self.players_levels.keys():
             return []
@@ -113,13 +120,21 @@ class Football:
         # return level_list
         return shuffle_list
 
-    def create_gorups(self):
-        for i in range(1, int(len(PLAYERS) / len(self.teams)) + 1):
-            players_list = self.get_all_players_in_level(i)
+    def create_gorups(self, is_test=False):
+        if is_test:
+            self.generate_weekly_players()
+        self.create_teams()
+        self.setMatchLevel()
+        for i in range(1, int(len(self.weekly_players) / len(self.teams)) + 1):
+            players_list = self.get_players_in_level(i)
             for player in players_list:
                 team = self.get_min_value_team()
                 self.teams[team].team_level += float(player.real_level)
                 self.teams[team].players.append(player)
+                if player.role == "Defence":
+                    team.defence = True
+                if player.role == "Attack":
+                    team.offence = True
 
     def validate_teams(self):
         scores = []
@@ -127,11 +142,6 @@ class Football:
         for name, team in self.teams.items():
             scores.append(team.team_level)
             players.append(len(team.players))
-            for p in team.players:
-                if p.role == "Defence":
-                    team.defence = True
-                if p.role == "Attack":
-                    team.offence = True
             if not (team.offence and team.defence):
                 print("Need at least 1 offence and 1 defence player. try again.")
                 return False
@@ -150,6 +160,23 @@ class Football:
             print("Gap between teams are too big. try again.")
             return False
         return True
+
+    def who_play_first(self):
+        first = random.choice(list(self.teams.keys()))
+        second = random.choice(list(self.teams.keys()))
+        while first == second:
+            second = random.choice(list(self.teams.keys()))
+        print("First match Will be [Team %s] Vs. [Team %s]! Good luck." % (first, second))
+
+    def create_GK(self):
+        for name, team in self.teams.items():
+            newteam = deepcopy(team)
+            random.shuffle(newteam.players)
+            for gk in range(len(newteam.players)):
+                for p in team.players:
+                    if p.name == newteam.players[gk].name:
+                        p.gk = gk + 1
+                        break
 
     def print_teams_full(self):
         print("=============================== Monday Footbal =============================")
@@ -170,33 +197,15 @@ class Football:
                 print(p.name)
             print("-------------------------------------------------------------- \n")
 
-    def who_play_first(self):
-        first = random.choice(list(self.teams.keys()))
-        second = random.choice(list(self.teams.keys()))
-        while first == second:
-            second = random.choice(list(self.teams.keys()))
-        print("First match Will be [Team %s] Vs. [Team %s]! Good luck." % (first, second))
-
-    def create_GK(self):
-        for name, team in self.teams.items():
-            newteam = deepcopy(team)
-            random.shuffle(newteam.players)
-            for gk in range(len(newteam.players)):
-                for p in team.players:
-                    if p.name == newteam.players[gk].name:
-                        p.gk = gk + 1
-                        break
-
     def teams_to_JSON(self):
         return json.dumps(self.teams, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
 
 
 if __name__ == "__main__":
-    path = "D:\\Data\\users\\omer-t\\Desktop\\PlayersEnglish.csv"
-    f = Football(path)
-    f.read_CSV(f.path_to_file)
-    f.create_gorups()
+    f = Football()
+    f.read_CSV()
+    f.create_gorups(True)
     retry = 0
 
     while not f.validate_teams() and retry != 100:
@@ -206,7 +215,9 @@ if __name__ == "__main__":
     f.create_GK()
     f.print_teams_full()
     f.who_play_first()
-    print("======================================")
 
-    jsonTeams = f.teams_to_JSON()
-    print(jsonTeams)
+    # print("======================================")
+    # jsonTeams = f.teams_to_JSON()
+    # print(jsonTeams)
+    # print("======================================")
+
