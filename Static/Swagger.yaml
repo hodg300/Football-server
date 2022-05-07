@@ -1,0 +1,126 @@
+openapi: 3.0.0
+info:
+  description: sean
+  version: 1.0.0
+  title: Monday Football
+servers:
+  - url: /
+tags:
+  - name: Player
+    description: API to player information
+  - name: Players
+    description: API to get players data
+  - name: Teams
+    description: API to get Teams data
+paths:
+  /players:
+    get:
+      tags:
+        - Players
+      summary: Get all players
+      description: ''
+      operationId: getAllPlayers
+      responses:
+        '200':
+          description: A JSON array of player names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '404':
+          description: User not found
+  /player:
+    post:
+      tags:
+        - Player
+      summary: Add Player to DB
+      requestBody:
+        description: player Request Post Object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/player'
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Failed. Bad post data.
+  /player/{name}:
+    get:
+      tags:
+        - Player
+      summary: Get Player by name
+      description: ''
+      operationId: getPlayerByName
+      parameters:
+        - name: name
+          in: path
+          description: The name of the player
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A User object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/player'
+        '404':
+          description: User not found
+  /Teams:
+    get:
+      tags:
+        - Teams
+      summary: Get Teams
+      description: Get teams for Monday Football
+      operationId: getTeams
+      responses:
+        '200':
+          description: Teams created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+        '503':
+          description: Cannot create Teams
+components:
+  schemas:
+    player:
+      type: object
+      properties:
+        name:
+          type: string
+        score:
+          type: number
+          format: double
+        position:
+          type: string
+          enum:
+            - Attack
+            - Midfield
+            - Defence
+        isMember:
+          type: boolean
+    Team:
+      type: object
+      properties:
+        teamLevel:
+          type: number
+          format: double
+        players:
+          type: array
+          items:
+            type:
+              object
+        hasOffence:
+          type: boolean
+        hasDefence:
+          type: boolean
+
+
