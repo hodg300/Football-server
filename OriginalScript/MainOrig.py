@@ -206,7 +206,7 @@ if __name__ == "__main__":
     f.create_GK()
     f.print_teams_full()
     f.who_play_first()
-    print("======================================")
-
-    jsonTeams = f.teams_to_JSON()
-    print(jsonTeams)
+    # print("======================================")
+    #
+    # jsonTeams = f.teams_to_JSON()
+    # print(jsonTeams)

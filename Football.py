@@ -23,13 +23,12 @@ class Football:
     def clear(self):
         for team in self.teams:
             del team
-        self.create_teams()
+        self.teams = {}
 
     def create_teams(self):
         teams_size = 3
         if len(self.weekly_players) < 18:
             teams_size = 2
-
         for i in range(1, teams_size + 1):
             self.teams[str(i)] = Team()
 
@@ -37,18 +36,25 @@ class Football:
         test_file = path.join(path.curdir, 'PlayersDB', 'test.csv')
         players_file = open(test_file, "r", encoding="utf8")
         read = csv.reader(players_file)
+        next(read, None)
         for row in read:
             name = row[0]
             for p in self.all_players:
-                if name == p.name:
+                player_name = p.name.replace(" ", "").lower()
+                name = name.replace(" ", "").lower()
+                if name == player_name:
                     self.weekly_players.append(p)
-                    self.print_player(p)
 
-    def fillWeeklyPlayers(self, weekly_players):
+    def fillWeeklyPlayers(self, weekly_players:list):
+        if not weekly_players:
+            self.generate_weekly_players()
+            return
         i = 0
         for wp in weekly_players:
             for p in self.all_players:
-                if wp == p.name:
+                player_name = p.name.replace(" ", "").lower()
+                name = wp.replace(" ", "").lower()
+                if name == p.name:
                     self.weekly_players.append(p)
 
     def read_CSV(self):
@@ -67,13 +73,14 @@ class Football:
 
     def setMatchLevel(self):
         i = 0
+        self.players_levels = {}
         for p in self.weekly_players:
             p.match_level = int(i / len(self.teams)) + 1
             if p.match_level not in self.players_levels.keys():
                 self.players_levels[p.match_level] = []
             self.players_levels[p.match_level].append(p)
             i += 1
-    
+
     def sort_by_level(self, player):
         return player.real_level
 
@@ -98,7 +105,6 @@ class Football:
         for name, team in self.teams.items():
             if len(team.players) > big_team:
                 big_team = len(team.players)
-        print(big_team)
         return big_team
 
     def get_min_value_team(self):
@@ -120,9 +126,8 @@ class Football:
         # return level_list
         return shuffle_list
 
-    def create_gorups(self, is_test=False):
-        if is_test:
-            self.generate_weekly_players()
+    def create_gorups(self):
+        self.clear()
         self.create_teams()
         self.setMatchLevel()
         for i in range(1, int(len(self.weekly_players) / len(self.teams)) + 1):
@@ -131,10 +136,10 @@ class Football:
                 team = self.get_min_value_team()
                 self.teams[team].team_level += float(player.real_level)
                 self.teams[team].players.append(player)
-                if player.role == "Defence":
-                    team.defence = True
-                if player.role == "Attack":
-                    team.offence = True
+                if player.role.lower() == "defence":
+                    self.teams[team].defence = True
+                if player.role.lower() == "attack":
+                    self.teams[team].offence = True
 
     def validate_teams(self):
         scores = []
@@ -205,13 +210,14 @@ class Football:
 if __name__ == "__main__":
     f = Football()
     f.read_CSV()
-    f.create_gorups(True)
+    f.fillWeeklyPlayers([])
+    f.create_gorups()
     retry = 0
 
     while not f.validate_teams() and retry != 100:
-        f.clear()
         f.create_gorups()
         retry += 1
+
     f.create_GK()
     f.print_teams_full()
     f.who_play_first()
