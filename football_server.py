@@ -6,7 +6,7 @@ from marshmallow import Schema, fields
 from football import *
 
 app = Flask(__name__, template_folder='templates')
-
+football = Football()
 spec = APISpec(
     title='flask-api-swagger-doc',
     version='1.0.0',
@@ -14,17 +14,12 @@ spec = APISpec(
     plugins=[FlaskPlugin(), MarshmallowPlugin()]
 )
 
-football = Football()
-football.read_CSV()
 
 @app.route('/')
 def home():
     return "Ready to shuffle!"
 
-@app.route('/Static/swagger.json')
-def create_swagger_spec():
-    return jsonify(spec.to_dict())
-
+#################### SWAGGER ##########################
 @app.route('/api')
 @app.route('/api/<path:path>')
 def swagger_docs(path=None):
@@ -33,13 +28,12 @@ def swagger_docs(path=None):
     else:
         return send_from_directory('./static', path)
 
+################### API ###########################
+
 @app.route('/players',methods = ['GET'])
 def get_all_players():  # noqa: E501
     """Get all players
-
      # noqa: E501
-
-
     :rtype: List[InlineResponse200]
     """
     return 'do some magic!'
@@ -85,7 +79,7 @@ def player_post(body):  # noqa: E501
     :rtype: None
     """
     if connexion.request.is_json:
-        body = Player.from_dict(connexion.request.get_json())  # noqa: E501
+        body = Player.from_dict(connexion.request.get_data())  # noqa: E501
     return 'do some magic!'
 
 def get_teams():  # noqa: E501

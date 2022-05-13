@@ -6,7 +6,7 @@ class Player:
 
     Do not edit the class manually.
     """
-    def __init__(self, name: str=None, real_rating: float=None, grade_this_week: float=None, position: str=None, is_member: bool=None):  # noqa: E501
+    def __init__(self, name: str=None, ranking: float=None, position: str=None, is_member: bool=None):  # noqa: E501
         """Player - a model defined in Swagger
 
         :param name: The name of this Player.  # noqa: E501
@@ -22,7 +22,8 @@ class Player:
         """
         self.swagger_types = {
             'name': str,
-            'real_rating': float,
+            'ranking': int,
+            'goalkeeper': int,
             'grade_this_week': float,
             'position': str,
             'is_member': bool
@@ -30,14 +31,16 @@ class Player:
 
         self.attribute_map = {
             'name': 'name',
-            'real_rating': 'realRating',
+            'ranking': 'ranking',
             'grade_this_week': 'gradeThisWeek',
             'position': 'position',
-            'is_member': 'isMember'
+            'is_member': 'isMember',
+            'goalkeeper': 'goalkeeper',
         }
         self._name = name
-        self._real_rating = real_rating
-        self._grade_this_week = grade_this_week
+        self._ranking = ranking
+        self._grade_this_week = 0
+        self._gk = 0
         self._position = position
         self._is_member = is_member
 
@@ -63,28 +66,28 @@ class Player:
         self._name = name
 
     @property
-    def real_rating(self) -> float:
-        """Gets the real_rating of this Player.
+    def ranking(self) -> float:
+        """Gets the ranking of this Player.
 
 
-        :return: The real_rating of this Player.
+        :return: The ranking of this Player.
         :rtype: float
         """
-        return self._real_rating
+        return self._ranking
 
-    @real_rating.setter
-    def real_rating(self, real_rating: float):
-        """Sets the real_rating of this Player.
+    @ranking.setter
+    def ranking(self, ranking: float):
+        """Sets the ranking of this Player.
 
 
-        :param real_rating: The real_rating of this Player.
-        :type real_rating: float
+        :param ranking: The ranking of this Player.
+        :type ranking: float
         """
 
-        self._real_rating = real_rating
+        self._ranking = ranking
 
     @property
-    def grade_this_week(self) -> float:
+    def grade_this_week(self) -> int:
         """Gets the grade_this_week of this Player.
 
 
@@ -94,7 +97,7 @@ class Player:
         return self._grade_this_week
 
     @grade_this_week.setter
-    def grade_this_week(self, grade_this_week: float):
+    def grade_this_week(self, grade_this_week: int):
         """Sets the grade_this_week of this Player.
 
 
@@ -103,6 +106,27 @@ class Player:
         """
 
         self._grade_this_week = grade_this_week
+
+    @property
+    def goalkeeper(self) -> int:
+        """Gets the grade_this_week of this Player.
+
+
+        :return: The grade_this_week of this Player.
+        :rtype: float
+        """
+        return self._gk
+
+    @goalkeeper.setter
+    def goalkeeper(self, goalkeeper: int):
+        """Sets the grade_this_week of this Player.
+
+
+        :param grade_this_week: The grade_this_week of this Player.
+        :type grade_this_week: float
+        """
+
+        self._gk = goalkeeper
 
     @property
     def position(self) -> str:

@@ -1,123 +1,125 @@
 openapi: 3.0.0
 info:
+  title: Monday Football
   description: sean
   version: 1.0.0
-  title: Monday Football
 servers:
-  - url: /
+- url: /
 tags:
-  - name: Player
-    description: API to player information
-  - name: Teams
-    description: API to get Teams data
+- name: Player
+  description: API to player information
+- name: Teams
+  description: API to get Teams data
 paths:
   /players:
     get:
       tags:
-        - Player
+      - Player
       summary: Get all players
-      description: ''
-      operationId: getAllPlayers
+      description: ""
+      operationId: get_all_players
       responses:
-        '200':
+        "200":
           description: A JSON array of player names
           content:
             application/json:
               schema:
-                type: array
                 uniqueItems: true
+                type: array
                 items:
-                  properties:
-                    name:
-                      type: string
-                    isMember:
-                      type: boolean
-        '404':
+                  $ref: '#/components/schemas/inline_response_200'
+                x-content-type: application/json
+        "404":
           description: User not found
+      x-openapi-router-controller: swagger_server.controllers.player_controller
   /player:
     post:
       tags:
-        - Player
+      - Player
       summary: Add Player to DB
+      operationId: player_post
       requestBody:
         description: Add player to the players DataBase
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Player'
+        required: true
       responses:
-        '201':
-          description: OK
-        '400':
+        "201":
+          description: Player Added to DB
+        "400":
           description: Failed. Bad post data.
+      x-openapi-router-controller: swagger_server.controllers.player_controller
   /player/{name}:
     get:
       tags:
-        - Player
+      - Player
       summary: Get Player by name
-      description: ''
-      operationId: getPlayerByName
+      description: ""
+      operationId: get_player_by_name
       parameters:
-        - name: name
-          in: path
-          description: The name of the player
-          required: true
-          schema:
-            type: string
+      - name: name
+        in: path
+        description: The name of the player
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
       responses:
-        '200':
+        "200":
           description: A User object
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Player'
-        '404':
+        "404":
           description: User not found
+      x-openapi-router-controller: swagger_server.controllers.player_controller
     delete:
       tags:
-        - Player
+      - Player
       summary: Delete player's Data
-      description: ''
-      operationId: deletePlayer
+      description: ""
+      operationId: delete_player
       parameters:
-        - name: name
-          in: path
-          description: The name of the player
-          required: true
-          schema:
-            type: string
+      - name: name
+        in: path
+        description: The name of the player
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
       responses:
-        '200':
-          description: A User object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Player'
-        '404':
+        "200":
+          description: user deleted from DB
+        "404":
           description: User not found
+      x-openapi-router-controller: swagger_server.controllers.player_controller
   /Teams:
     post:
       tags:
-        - Teams
+      - Teams
       summary: Get Teams
       description: Get teams for Monday Football
-      operationId: getTeams
+      operationId: get_teams
       parameters:
-        - in: body
-          name: name
-          description: names of players for this monday
-          required: true
-          schema:
-            type: array
-            uniqueItems: true
-            minItems: 14
-            maxItems: 21
-            items:
-              type: string
-            example: ["Hod", "Omer", "Ran"]
+      - name: players
+        in: body
+        description: weekly players
+        required: true
+        style: simple
+        explode: false
+        schema:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+          x-content-type: application/json
       responses:
-        '200':
+        "200":
           description: Teams created
           content:
             application/json:
@@ -125,8 +127,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Team'
-        '503':
+                x-content-type: application/json
+        "503":
           description: Cannot create Teams
+      x-openapi-router-controller: swagger_server.controllers.teams_controller
 components:
   schemas:
     Player:
@@ -134,28 +138,51 @@ components:
       properties:
         name:
           type: string
-        realRating:
+        ranking:
           type: number
-          format: double
+          format: float
         gradeThisWeek:
           type: number
-          format: int32
+          format: int
         position:
           type: string
           enum:
-            - Attack
-            - Midfield
-            - Defence
+          - Attack
+          - Midfield
+          - Defence
         isMember:
           type: boolean
+        goalkeeper:
+          type: number
+          format: int
+      example:
+        name: name
+        gradeThisWeek: 6
+        ranking: 3.5
+        position: Attack
+        isMember: true
     Team:
       type: object
       properties:
         teamLevel:
           type: number
-          format: double
+          format: float
         players:
           type: array
           items:
-            type:
-              object
+            type: object
+      example:
+        teamLevel: 21.26
+        players:
+        - {}
+        - {}
+    inline_response_200:
+      properties:
+        name:
+          type: string
+        isMember:
+          type: boolean
+      example:
+        name: name
+        isMember: true
+

@@ -1,28 +1,23 @@
 import csv
 import json
-from base_handler import BaseHandlerInterface
+from PlayersDB.base_handler import BaseHandlerInterface
+import os.path as op
+from pprint import pp
 
 class CSVHandler(BaseHandlerInterface):
 
-    def __init__(self, path_to_file: str="Players.csv"):
+    def __init__(self, path_to_file: str=""):
+        super().__init__()
         self._file_path = path_to_file
+        self._csv_data = None
+        self.__update_json_data()
+        self.__update_csv_data()
+
+    def __update_csv_data(self):
         players_file = open(self._file_path, "r")
         self._csv_data = csv.reader(players_file)
 
-    @property
-    def get_data(self) -> list:
-        """Gets csv data of the playes.
-
-
-        :return: csv data
-        :rtype: list
-        """
-        # players_file = open(self._file_path, "r", encoding="utf8")
-        # self._csv_data = csv.reader(players_file)
-        return self._csv_data
-
-    def get_json(self) -> dict:
-        # create a dictionary
+    def __update_json_data(self):
         players_file = open(self._file_path, "r", encoding="utf8")
         json_data = csv.DictReader(players_file)
         data = {}
@@ -37,8 +32,15 @@ class CSVHandler(BaseHandlerInterface):
 
         # Open a json writer, and use the json.dumps()
         # function to dump data
-        json_data = json.dumps(data, indent=4)
-        return json_data
+        self._json_data = json.loads(json.dumps(data, indent=4))
+
+    @property
+    def csv_data(self) -> list:
+        """Gets csv data of the playes.
+        :return: csv data
+        :rtype: list
+        """
+        return self._csv_data
 
     def delete_item(self, key : str=None) -> bool:
         deleted = False
@@ -49,21 +51,25 @@ class CSVHandler(BaseHandlerInterface):
                 if field.lower() == key.lower():
                     data.remove(row)
                     deleted = True
-        with open(self._file_path, 'w', newline='') as writeFile:
-            writer = csv.writer(writeFile)
-            writer.writerows(data)
-            writeFile.close()
+        if deleted:
+            with open(self._file_path, 'w', newline='') as writeFile:
+                writer = csv.writer(writeFile)
+                writer.writerows(data)
+                writeFile.close()
+            self.__update_json_data()
+            self.__update_csv_data()
         return deleted
 
-    def add_item(self, item : list=None) ->  None:
+    def add_item(self, item : dict=None) ->  None:
+        values = list(item.values())
         with open(self._file_path, 'a+', newline='') as writeFile:
             writer = csv.writer(writeFile)
-            writer.writerow(row)
+            writer.writerow(item)
             writeFile.close()
+        self.__update_json_data()
+        self.__update_csv_data()
 
 if __name__ == "__main__":
-    csv_handler = CSVHandler()
-    #csv_handler.delete_item("raz")
-    csv_handler.add_item(['test', 1.1, 'Attack', 'X'])
-    print ("DONE")
-    print (csv_handler.get_json())
+    csv_file =  op.join(op.dirname(op.realpath(__file__)),"Players.csv")
+    csv_handler = CSVHandler(csv_file)
+    pp(csv_handler.json_data)

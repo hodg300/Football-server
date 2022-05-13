@@ -1,20 +1,19 @@
+from abc import ABC, abstractmethod
 
-class BaseHandlerInterface:
+class BaseHandlerInterface(ABC):
 
-    def create_database(self) -> None:
-        """
+    def __init__(self):
+        self._json_data = {}
 
-        :return: data baser creation
-        """
-    pass
-
-    def get_json(self) -> dict:
-        """Gets json data of the players.
+    @property
+    def json_data(self) -> dict:
+        """Gets json data of players.
         :return: players data
         :rtype: json
         """
-        pass
+        return self._json_data
 
+    @abstractmethod
     def delete_item(self, key: str = None) -> bool:
         """
 
@@ -23,6 +22,16 @@ class BaseHandlerInterface:
         """
         pass
 
+    @abstractmethod
+    def add_item(self, item: list = None) -> None:
+        """
+
+        :param item: item to add as list
+        :return: Added
+        """
+        pass
+
+    @abstractmethod
     def add_item(self, item: list = None) -> None:
         """
 
