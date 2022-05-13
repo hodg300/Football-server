@@ -48,14 +48,15 @@ class Football:
     def fillWeeklyPlayers(self, weekly_players:list):
         if not weekly_players:
             self.generate_weekly_players()
-            return
-        i = 0
-        for wp in weekly_players:
-            for p in self.all_players:
-                player_name = p.name.replace(" ", "").lower()
-                name = wp.replace(" ", "").lower()
-                if name == p.name:
-                    self.weekly_players.append(p)
+        else:
+            i = 0
+            for wp in weekly_players:
+                for p in self.all_players:
+                    player_name = p.name.replace(" ", "").lower()
+                    name = wp.replace(" ", "").lower()
+                    if name == p.name:
+                        self.weekly_players.append(p)
+        self.weekly_players.sort(key=self.sort_by_level, reverse=True)
 
     def read_CSV(self):
         players_file = open(self.db_path, "r", encoding="utf8")
@@ -79,7 +80,7 @@ class Football:
             if p.match_level not in self.players_levels.keys():
                 self.players_levels[p.match_level] = []
             self.players_levels[p.match_level].append(p)
-            i += 1
+            i += 2
 
     def sort_by_level(self, player):
         return player.real_level

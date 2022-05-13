@@ -8,15 +8,13 @@ servers:
 tags:
   - name: Player
     description: API to player information
-  - name: Players
-    description: API to get players data
   - name: Teams
     description: API to get Teams data
 paths:
   /players:
     get:
       tags:
-        - Players
+        - Player
       summary: Get all players
       description: ''
       operationId: getAllPlayers
@@ -29,7 +27,11 @@ paths:
                 type: array
                 uniqueItems: true
                 items:
-                  $ref: '#/components/schemas/playerPartly'
+                  properties:
+                    name:
+                      type: string
+                    isMember:
+                      type: boolean
         '404':
           description: User not found
   /player:
@@ -38,12 +40,12 @@ paths:
         - Player
       summary: Add Player to DB
       requestBody:
-        description: player Request Post Object
+        description: Add player to the players DataBase
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/playerFull'
+              $ref: '#/components/schemas/Player'
       responses:
         '201':
           description: OK
@@ -69,7 +71,29 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/playerFull'
+                $ref: '#/components/schemas/Player'
+        '404':
+          description: User not found
+    delete:
+      tags:
+        - Player
+      summary: Delete player's Data
+      description: ''
+      operationId: deletePlayer
+      parameters:
+        - name: name
+          in: path
+          description: The name of the player
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A User object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
         '404':
           description: User not found
   /Teams:
@@ -82,7 +106,7 @@ paths:
       parameters:
         - in: body
           name: name
-          description: "names of players for this monday"
+          description: names of players for this monday
           required: true
           schema:
             type: array
@@ -105,14 +129,7 @@ paths:
           description: Cannot create Teams
 components:
   schemas:
-    playerPartly:
-      type: object
-      properties:
-        name:
-          type: string
-        isMember:
-          type: boolean
-    playerFull:
+    Player:
       type: object
       properties:
         name:
