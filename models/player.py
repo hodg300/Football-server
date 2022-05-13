@@ -20,23 +20,6 @@ class Player:
         :param is_member: The is_member of this Player.  # noqa: E501
         :type is_member: bool
         """
-        self.swagger_types = {
-            'name': str,
-            'ranking': int,
-            'goalkeeper': int,
-            'grade_this_week': float,
-            'position': str,
-            'is_member': bool
-        }
-
-        self.attribute_map = {
-            'name': 'name',
-            'ranking': 'ranking',
-            'grade_this_week': 'gradeThisWeek',
-            'position': 'position',
-            'is_member': 'isMember',
-            'goalkeeper': 'goalkeeper',
-        }
         self._name = name
         self._ranking = ranking
         self._grade_this_week = 0

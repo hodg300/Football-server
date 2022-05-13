@@ -1,12 +1,12 @@
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 from apispec_webframeworks.flask import FlaskPlugin
-from flask import Flask, jsonify, render_template, send_from_directory
+from flask import Flask, jsonify, render_template, send_from_directory,request
 from marshmallow import Schema, fields
-from football import *
+from football import FootballManager
 
 app = Flask(__name__, template_folder='templates')
-football = Football()
+football = FootballManager()
 spec = APISpec(
     title='flask-api-swagger-doc',
     version='1.0.0',
@@ -36,9 +36,11 @@ def get_all_players():  # noqa: E501
      # noqa: E501
     :rtype: List[InlineResponse200]
     """
-    return 'do some magic!'
+    if (request.method == 'GET'):
+        print (football.get_all_players())
+        return jsonify(football.get_all_players())
 
-
+@app.route('/players/{name}',methods = ['DELETE'])
 def delete_player(name):  # noqa: E501
     """Delete player&#x27;s Data
 
@@ -49,12 +51,9 @@ def delete_player(name):  # noqa: E501
 
     :rtype: None
     """
-    return 'do some magic!'
+    return football.delete_player(name)
 
-
-
-
-
+@app.route('/players/{name}',methods = ['GET'])
 def get_player_by_name(name):  # noqa: E501
     """Get Player by name
 
@@ -65,10 +64,10 @@ def get_player_by_name(name):  # noqa: E501
 
     :rtype: Player
     """
-    return 'do some magic!'
+    return football.get_player_by_name(name)
 
-
-def player_post(body):  # noqa: E501
+@app.route('/player',methods = ['POST'])
+def add_player(body):  # noqa: E501
     """Add Player to DB
 
      # noqa: E501
@@ -80,17 +79,18 @@ def player_post(body):  # noqa: E501
     """
     if connexion.request.is_json:
         body = Player.from_dict(connexion.request.get_data())  # noqa: E501
-    return 'do some magic!'
+        football.add_player(body)
+    return
 
-def get_teams():  # noqa: E501
+@app.route('/Teams',methods = ['POST'])
+def get_teams(players):
     """Get Teams
 
     Get teams for Monday Football # noqa: E501
 
-
     :rtype: List[Team]
     """
-    return 'do some magic!'
+    return football.get_teams(players)
 
 if __name__ == '__main__':
     app.run(debug=True)

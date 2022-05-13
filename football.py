@@ -3,7 +3,6 @@ import os
 import csv
 import json
 import pprint
-from copy import deepcopy
 from Controllers.players_controller import PlayerController
 from Controllers.teams_controller import TeamsController
 import os.path as path
@@ -12,7 +11,7 @@ COLORS = ['RED', 'BLUE', 'GREEN']
 MAX_DIFF_BETWEEN_EQUAL_TEAMS = 0.5
 MAX_DIFF_BETWEEN_NOT_EQUAL_TEAMS = 0.5
 
-class Football:
+class FootballManager:
     def __init__(self):
         self.player_con = PlayerController()
         self.teams_con = TeamsController(self.player_con)
@@ -25,15 +24,28 @@ class Football:
             second = random.choice(list(self.teams_con.teams.keys()))
         print("First match Will be [Team %s] Vs. [Team %s]! Good luck." % (first, second))
 
-    def create_GK(self):
-        for name, team in self.teams_con.teams.items():
-            newteam = deepcopy(team)
-            random.shuffle(newteam.players)
-            for gk in range(len(newteam.players)):
-                for p in team.players:
-                    if p.name == newteam.players[gk].name:
-                        p.goalkeeper = gk + 1
-                        break
+    def get_all_players(self):
+        return self.player_con.get_all_players()
+
+    def delete_player(self, name):
+        return self.player_con.delete_player(name)
+
+    def get_player_by_name(self, name):
+        return self.player_con.get_player_by_name(name)
+
+    def add_player(self, player):
+        return self.player_con.add_player(player)
+
+    def get_teams(self, players: list) -> dict:
+        self.player_con.fillWeeklyPlayers(players)
+        self.teams_con.create_gorups()
+        retry = 0
+        while not f.teams_con.validate_teams() and retry != 100:
+            f.teams_con.create_gorups()
+            retry += 1
+        return json.loads(json.dumps(self.teams_con.teams, default=lambda o: o.__dict__,sort_keys=True, indent=4))
+
+###########################################################################################################
 
 def get_list_for_test(file):
     test_list = []
@@ -45,16 +57,9 @@ def get_list_for_test(file):
     return test_list
 
 if __name__ == "__main__":
-    f = Football()
+    f = FootballManager()
     test_list = get_list_for_test(path.join(os.getcwd(), "test", "weekly.csv"))
-    f.player_con.fillWeeklyPlayers(test_list)
-    f.teams_con.create_gorups()
-    retry = 0
-
-    while not f.teams_con.validate_teams() and retry != 100:
-        f.teams_con.create_gorups()
-        retry += 1
-
-    f.create_GK()
+    json_data = f.get_teams(test_list)
+    #pprint.pprint(json_data)
     f.teams_con.print_teams_full()
     f.who_play_first()

@@ -13,15 +13,6 @@ class Team:
         :param players: The players of this Team.  # noqa: E501
         :type players: List[object]
         """
-        self.swagger_types = {
-            'team_level': float,
-            'players': list[object]
-        }
-
-        self.attribute_map = {
-            'team_level': 'teamLevel',
-            'players': 'players'
-        }
         self._team_level = 0
         self._players = []
         self._defence = False

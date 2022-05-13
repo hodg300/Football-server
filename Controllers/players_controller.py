@@ -72,7 +72,7 @@ class PlayerController:
         return self.db_accessor.db.json_data[name]
 
 
-    def player_post(self, player):
+    def add_player(self, player):
         """Add Player to DB
         :param body: Add player to the players DataBase
         :type body: dict | bytes
@@ -86,6 +86,13 @@ class PlayerController:
         self.all_players.append(p)
         self.db_accessor.add_player(player)
         return
+
+    def change_to_dict(self, player):
+        print (player)
+        return json.dumps(player, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
+
+
 
     def print_player(self, p, color='BLUE'):
         t = "Player [%s] in position [%s] with level [%s] will be goalkeeper number: [%d]" % (
