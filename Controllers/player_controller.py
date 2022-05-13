@@ -1,8 +1,7 @@
 import connexion
 import six
 
-from swagger_server.models.inline_response200 import InlineResponse200  # noqa: E501
-from
+from models.player import Player
 
 
 def delete_player(name):  # noqa: E501

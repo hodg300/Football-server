@@ -1,11 +1,9 @@
-import math
-import os.path
 import random
 import csv
 import json
 import pprint
 from copy import deepcopy
-from FootballSchemas import *
+from models.football_schemas import *
 import os.path as path
 
 COLORS = ['RED', 'BLUE', 'GREEN']

@@ -1,8 +1,5 @@
-import connexion
-import six
-
-from swagger_server.models.team import Team  # noqa: E501
-from swagger_server import util
+from models.team import Team
+from models.player import Player
 
 
 def get_teams():  # noqa: E501

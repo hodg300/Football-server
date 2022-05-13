@@ -1,4 +1,4 @@
-﻿Name,Score,Role,membership
+Name,Score,Role,membership
 Daniel Ben Haim,4.53,Attack,V
 Zakuta,4.31,Attack,V
 David Biton,3.84,Defence,V
@@ -24,12 +24,13 @@ Hagai,4.1,Midfield,
 Adir frenkel,3.71,Attack,V
 Jenia,3.38,Defence,V
 Itay Shalev,3.31,Midfield,V
-Raz,3.47,Attack,
-Goalkeeper,3,Defence,
-Shahar Kail,2.26,Defence,
-omri eliyau,2.8,Attack,
-yuval dahan,2.8,Midfield,
-Itay zamir,3.53,Midfield,
-nati minyan,2.73,Defence,
-naor elgaza,3,Defence,
-gal yaar,4.66,Midfield,
+Raz,3.47,Attack,X
+Goalkeeper,3,Defence,X
+Shahar Kail,2.26,Defence,X
+omri eliyau,2.8,Attack,X
+yuval dahan,2.8,Midfield,X
+Itay zamir,3.53,Midfield,X
+nati minyan,2.73,Defence,X
+naor elgaza,3,Defence,X
+gal yaar,4.66,Midfield,X
+
