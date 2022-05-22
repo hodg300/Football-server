@@ -27,7 +27,7 @@ paths:
                 uniqueItems: true
                 type: array
                 items:
-                  $ref: '#/components/schemas/inline_response_200'
+                  $ref: '#/components/schemas/Player_lean'
                 x-content-type: application/json
         "404":
           description: User not found
@@ -74,9 +74,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Player'
-        "404":
-          description: User not found
-      x-openapi-router-controller: swagger_server.controllers.player_controller
     delete:
       tags:
       - Player
@@ -95,7 +92,7 @@ paths:
       responses:
         "200":
           description: user deleted from DB
-        "404":
+        "400":
           description: User not found
       x-openapi-router-controller: swagger_server.controllers.player_controller
   /Teams:
@@ -114,7 +111,7 @@ paths:
         explode: false
         schema:
           uniqueItems: true
-          type: array
+          type: dict
           items:
             type: string
           x-content-type: application/json
@@ -177,7 +174,7 @@ components:
         players:
         - {}
         - {}
-    inline_response_200:
+    Player_lean:
       properties:
         name:
           type: string
@@ -186,4 +183,3 @@ components:
       example:
         name: name
         isMember: true
-

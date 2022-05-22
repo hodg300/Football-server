@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "94d45cb6-5bab-4954-8875-6a4bfb0e5b1c",
+		"name": "Monday football",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21063295"
+	},
+	"item": [
+		{
+			"name": "Get All players",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/players",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"players"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get player data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/players/a",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"players",
+						"a"
+					],
+					"query": [
+						{
+							"key": "test",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Player",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"test\",\r\n  \"ranking\": 3.5,\r\n  \"position\": \"Attack\",\r\n  \"isMember\": true,\r\n  \"gradeThisWeek\": 6,\r\n  \"goalkeeper\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/player",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"player"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete player",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/players/test",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"players",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get teams",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"1\": \"a\",\r\n    \"2\": \"b\",\r\n    \"3\":\"c\",\r\n    \"4\":\"d\",\r\n    \"5\":\"e\",\r\n    \"6\":\"f\",\r\n    \"7\":\"g\",\r\n    \"8\":\"h\",\r\n    \"9\":\"i\",\r\n    \"10\":\"j\",\r\n    \"11\":\"k\",\r\n    \"12\":\"l\",\r\n    \"13\":\"m\",\r\n    \"14\":\"n\",\r\n    \"15\":\"o\",\r\n    \"16\":\"p\",\r\n    \"17\":\"q\",\r\n    \"18\":\"r\",\r\n    \"19\":\"s\",\r\n    \"20\":\"t\",\r\n    \"21\":\"u\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/Teams",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"Teams"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
