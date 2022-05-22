@@ -51,6 +51,7 @@ class CSVHandler(BaseHandlerInterface):
                 if field.lower() == key.lower():
                     data.remove(row)
                     deleted = True
+                    print("%s was deleted from the DB" %key)
         if deleted:
             with open(self._file_path, 'w', newline='') as writeFile:
                 writer = csv.writer(writeFile)
@@ -64,7 +65,7 @@ class CSVHandler(BaseHandlerInterface):
         values = list(item.values())
         with open(self._file_path, 'a+', newline='') as writeFile:
             writer = csv.writer(writeFile)
-            writer.writerow(item)
+            writer.writerow(values)
             writeFile.close()
         self.__update_json_data()
         self.__update_csv_data()

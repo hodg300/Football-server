@@ -4,6 +4,7 @@ from apispec_webframeworks.flask import FlaskPlugin
 from flask import Flask, jsonify, render_template, send_from_directory,request
 from marshmallow import Schema, fields
 from football import FootballManager
+import json
 
 app = Flask(__name__, template_folder='templates')
 football = FootballManager()
@@ -37,10 +38,9 @@ def get_all_players():  # noqa: E501
     :rtype: List[InlineResponse200]
     """
     if (request.method == 'GET'):
-        print (football.get_all_players())
         return jsonify(football.get_all_players())
 
-@app.route('/players/{name}',methods = ['DELETE'])
+@app.route('/players/<string:name>',methods = ['DELETE'])
 def delete_player(name):  # noqa: E501
     """Delete player&#x27;s Data
 
@@ -51,9 +51,11 @@ def delete_player(name):  # noqa: E501
 
     :rtype: None
     """
-    return football.delete_player(name)
+    if football.delete_player(name):
+        return "success", 204
+    return "user not found", 400
 
-@app.route('/players/{name}',methods = ['GET'])
+@app.route('/players/<string:name>',methods = ['GET'])
 def get_player_by_name(name):  # noqa: E501
     """Get Player by name
 
@@ -67,7 +69,7 @@ def get_player_by_name(name):  # noqa: E501
     return football.get_player_by_name(name)
 
 @app.route('/player',methods = ['POST'])
-def add_player(body):  # noqa: E501
+def add_player():
     """Add Player to DB
 
      # noqa: E501
@@ -77,20 +79,24 @@ def add_player(body):  # noqa: E501
 
     :rtype: None
     """
-    if connexion.request.is_json:
-        body = Player.from_dict(connexion.request.get_data())  # noqa: E501
+    if request.data:
+        body = request.get_data()  # noqa: E501
         football.add_player(body)
-    return
+    return "success", 201
 
 @app.route('/Teams',methods = ['POST'])
-def get_teams(players):
+def get_teams():
     """Get Teams
 
     Get teams for Monday Football # noqa: E501
 
     :rtype: List[Team]
     """
-    return football.get_teams(players)
+    if request.data:
+        body = request.get_data()  # noqa: E501
+        data = football.get_teams(body)
+        return jsonify(data), 201
+    return "no data", 400
 
 if __name__ == '__main__':
     app.run(debug=True)

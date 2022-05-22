@@ -11,6 +11,7 @@ COLORS = ['RED', 'BLUE', 'GREEN']
 MAX_DIFF_BETWEEN_EQUAL_TEAMS = 0.5
 MAX_DIFF_BETWEEN_NOT_EQUAL_TEAMS = 0.5
 
+
 class FootballManager:
     def __init__(self):
         self.player_con = PlayerController()
@@ -36,12 +37,13 @@ class FootballManager:
     def add_player(self, player):
         return self.player_con.add_player(player)
 
-    def get_teams(self, players: list) -> dict:
-        self.player_con.fillWeeklyPlayers(players)
+    def get_teams(self, players: dict) -> dict:
+        weekly_players = json.loads(players)
+        self.player_con.fillWeeklyPlayers(weekly_players.values())
         self.teams_con.create_gorups()
         retry = 0
-        while not f.teams_con.validate_teams() and retry != 100:
-            f.teams_con.create_gorups()
+        while not self.teams_con.validate_teams() and retry < 100:
+            self.teams_con.create_gorups()
             retry += 1
         return json.loads(json.dumps(self.teams_con.teams, default=lambda o: o.__dict__,sort_keys=True, indent=4))
 
@@ -63,3 +65,4 @@ if __name__ == "__main__":
     #pprint.pprint(json_data)
     f.teams_con.print_teams_full()
     f.who_play_first()
+

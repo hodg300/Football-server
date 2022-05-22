@@ -8,7 +8,6 @@ Dor Tzafrir,3.78,Midfield,V
 Refael,3.35,Defence,V
 Lankri,3.19,Defence,V
 Niv poleg,3.22,Defence,V
-Boris,3.15,Midfield,V
 Asaf Geva,2.9,Midfield,
 Shoko,2.85,Defence,V
 Kobi,3.04,Midfield,
@@ -33,3 +32,4 @@ Itay zamir,3.53,Midfield,X
 nati minyan,2.73,Defence,X
 naor elgaza,3,Defence,X
 gal yaar,4.66,Midfield,X
+test,3.5,Attack,True,6,4

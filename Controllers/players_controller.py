@@ -36,7 +36,7 @@ class PlayerController:
         i = 0
         for wp_name in weekly_players:
             for p in self.all_players:
-                if wp_name == p.name:
+                if str(wp_name) == p.name:
                     self.weekly_players.append(p)
         self.weekly_players.sort(key=lambda x: x.ranking, reverse=True)
 
@@ -57,11 +57,13 @@ class PlayerController:
 
     def get_all_players(self):  # noqa: E501
         players_db = {}
-        for player in self.db_accessor.db.json_data.values:
-            players_db['name'] = player['name']
-            players_db['isMember'] = player['Member']
+        playerID = 1
+        for player in self.db_accessor.db.json_data.values():
+            players_db[playerID] = {}
+            players_db[playerID]['name'] = player['Name']
+            players_db[playerID]['isMember'] = player['Member']
+            playerID += 1
         return json.loads(json.dumps(players_db, indent=4))
-
 
     def get_player_by_name(self, name):
         """Get Player by name
@@ -72,23 +74,23 @@ class PlayerController:
         return self.db_accessor.db.json_data[name]
 
 
-    def add_player(self, player):
+    def add_player(self, player_json):
         """Add Player to DB
         :param body: Add player to the players DataBase
         :type body: dict | bytes
         :rtype: None
         """
-        name = player['Name']
-        ranking = player['Ranking']
-        position = player['Position']
-        member = player['Member']
+        player = json.loads(player_json)
+        name = player['name']
+        ranking = player['ranking']
+        position = player['position']
+        member = player['isMember']
         p = Player(name, ranking, position, member)
         self.all_players.append(p)
         self.db_accessor.add_player(player)
         return
 
     def change_to_dict(self, player):
-        print (player)
         return json.dumps(player, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
 

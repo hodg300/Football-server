@@ -37,7 +37,7 @@ paths:
       tags:
       - Player
       summary: Add Player to DB
-      operationId: player_post
+      operationId: add_player
       requestBody:
         description: Add player to the players DataBase
         content:
@@ -141,9 +141,6 @@ components:
         ranking:
           type: number
           format: float
-        gradeThisWeek:
-          type: number
-          format: int
         position:
           type: string
           enum:
@@ -152,15 +149,19 @@ components:
           - Defence
         isMember:
           type: boolean
+        gradeThisWeek:
+          type: number
+          format: int
         goalkeeper:
           type: number
           format: int
       example:
         name: name
-        gradeThisWeek: 6
         ranking: 3.5
         position: Attack
         isMember: true
+        gradeThisWeek: 6
+        goalkeeper: 4
     Team:
       type: object
       properties:
