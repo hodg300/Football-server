@@ -1,2 +1,1 @@
-heroku ps:scale web=1
-web: python football_server.py
+web: gunicorn football_server:app
