@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template, send_from_directory,request
 from football import FootballManager
 import json
+import os
 
 app = Flask(__name__, template_folder='templates')
 football = FootballManager()
@@ -88,4 +89,5 @@ def get_teams():
     return "no data", 400
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5002))
+    app.run(port=port, debug=True)
