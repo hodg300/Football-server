@@ -50,6 +50,11 @@ class FootballManager:
 ###########################################################################################################
 
 def get_list_for_test(file):
+    """
+    Test
+    :param file: file to test
+    :return: testing
+    """
     test_list = []
     test_file = open(file, "r")
     read = csv.reader(test_file)
