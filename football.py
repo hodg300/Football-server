@@ -38,6 +38,11 @@ class FootballManager:
         return self.player_con.add_player(player)
 
     def get_teams(self, players: dict) -> dict:
+        """
+
+        :param players: players to shuffle
+        :return: json of 3 teams
+        """
         weekly_players = json.loads(players)
         self.player_con.fillWeeklyPlayers(weekly_players.values())
         self.teams_con.create_gorups()
