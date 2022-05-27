@@ -1,20 +1,9 @@
-from apispec import APISpec
-from apispec.ext.marshmallow import MarshmallowPlugin
-from apispec_webframeworks.flask import FlaskPlugin
 from flask import Flask, jsonify, render_template, send_from_directory,request
-from marshmallow import Schema, fields
 from football import FootballManager
 import json
 
 app = Flask(__name__, template_folder='templates')
 football = FootballManager()
-spec = APISpec(
-    title='flask-api-swagger-doc',
-    version='1.0.0',
-    openapi_version='3.0.2',
-    plugins=[FlaskPlugin(), MarshmallowPlugin()]
-)
-
 
 @app.route('/')
 def home():
