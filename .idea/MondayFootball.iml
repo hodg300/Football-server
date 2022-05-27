@@ -6,6 +6,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">
-    <option name="requirementsPath" value="requirements.txt" />
+    <option name="removeUnused" value="true" />
   </component>
 </module>
