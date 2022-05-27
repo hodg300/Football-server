@@ -89,5 +89,6 @@ def get_teams():
     return "no data", 400
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5002))
-    app.run(port=port, debug=True)
+    # port = int(os.environ.get('PORT', 5002))
+    # app.run(port=port, debug=True)
+    app.run(debug=True)
