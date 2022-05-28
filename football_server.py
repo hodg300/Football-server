@@ -10,6 +10,11 @@ football = FootballManager()
 def home():
     return "Ready to shuffle!"
 
+def create_response(messege: str) -> json:
+    respone = {}
+    respone['message'] = messege
+    return json.loads(json.dumps(respone))
+
 #################### SWAGGER ##########################
 @app.route('/api')
 @app.route('/api/<path:path>')
@@ -28,7 +33,7 @@ def get_all_players():  # noqa: E501
     :rtype: List[InlineResponse200]
     """
     if (request.method == 'GET'):
-        return jsonify(football.get_all_players())
+        return jsonify(football.get_all_players()), 200
 
 @app.route('/players/<string:name>',methods = ['DELETE'])
 def delete_player(name):  # noqa: E501
@@ -42,8 +47,8 @@ def delete_player(name):  # noqa: E501
     :rtype: None
     """
     if football.delete_player(name):
-        return "success", 204
-    return "user not found", 400
+        return jsonify(create_response("Player deleted successfully")), 204
+    return jsonify(create_response("Cannot find player")), 400
 
 @app.route('/players/<string:name>',methods = ['GET'])
 def get_player_by_name(name):  # noqa: E501
@@ -56,7 +61,7 @@ def get_player_by_name(name):  # noqa: E501
 
     :rtype: Player
     """
-    return football.get_player_by_name(name)
+    return jsonify(football.get_player_by_name(name)), 200
 
 @app.route('/player',methods = ['POST'])
 def add_player():
@@ -71,8 +76,9 @@ def add_player():
     """
     if request.data:
         body = request.get_data()  # noqa: E501
-        football.add_player(body)
-    return "success", 201
+        if football.add_player(body):
+            return jsonify(create_response("Player Added successfully")), 201
+    return jsonify(create_response("Cannot add player, wrong input")), 400
 
 @app.route('/Teams',methods = ['POST'])
 def get_teams():
@@ -86,8 +92,8 @@ def get_teams():
         body = request.get_data()  # noqa: E501
         data = football.get_teams(body)
         return jsonify(data), 201
-    return "no data", 400
+    return jsonify(create_response("Cannot create teams, please check the data")), 400
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5002))
+    port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)

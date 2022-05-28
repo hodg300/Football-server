@@ -13,78 +13,78 @@ class Team:
         :param players: The players of this Team.  # noqa: E501
         :type players: List[object]
         """
-        self._team_level = 0
-        self._players = []
-        self._defence = False
-        self._attack = False
+        self.team_level = 0
+        self.players = []
+        self.defence = False
+        self.attack = False
 
     @property
-    def team_level(self) -> float:
+    def Team_level(self) -> float:
         """Gets the team_level of this Team.
         :return: The team_level of this Team.
         :rtype: float
         """
-        return self._team_level
+        return self.team_level
 
-    @team_level.setter
-    def team_level(self, team_level: float):
+    @Team_level.setter
+    def Team_level(self, team_level: float):
         """Sets the team_level of this Team.
         :param team_level: The team_level of this Team.
         :type team_level: float
         """
 
-        self._team_level = team_level
+        self.team_level = team_level
 
     @property
-    def players(self) -> list[object]:
+    def Players(self) -> list[object]:
         """Gets the players of this Team.
         :return: The players of this Team.
         :rtype: List[object]
         """
 
-        return self._players
+        return self.players
 
-    @players.setter
-    def players(self, players: list[object]):
+    @Players.setter
+    def Players(self, players: list[object]):
         """Sets the players of this Team.
         :param players: The players of this Team.
         :type players: List[object]
         """
 
-        self._players = players
+        self.players = players
 
     @property
-    def defence(self) -> bool:
+    def Defence(self) -> bool:
         """
         :return: if the team has defencing players
         :rtype: bool
         """
 
-        return self._defence
+        return self.defence
 
-    @defence.setter
-    def defence(self, defence: bool):
+    @Defence.setter
+    def Defence(self, defence: bool):
         """
         :param defence: if the team has defencing players
         :type defence: bool
         """
 
-        self._defence = defence
+        self.defence = defence
 
     @property
-    def attack(self) -> bool:
+    def Attack(self) -> bool:
         """
         :return: if the team has attacking players
         :rtype: bool
         """
 
-        return self._attack
+        return self.attack
 
-    @defence.setter
-    def attack(self, attack: bool):
+    @Attack.setter
+    def Attack(self, attack: bool):
         """
         :param attack: if the team has attacking players
         :type attack: bool
         """
 
-        self._attack = attack
+        self.attack = attack

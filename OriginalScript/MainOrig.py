@@ -72,7 +72,7 @@ class Football:
 
     def print_player(self, p, color):
         t = "Player [%s] in role [%s] with level [%s] will be goalkeeper number: [%d]" % (
-        p.name, p.role, p.real_level, p.gk)
+            p.name, p.role, p.real_level, p.gk)
         self.print_color(t, color)
 
     def print_color(self, t, color):
