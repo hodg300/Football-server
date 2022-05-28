@@ -8,7 +8,7 @@ f,3.78,Midfield,V
 g,3.35,Defence,V
 h,3.19,Defence,V
 i,3.22,Defence,V
-j,2.9,Midfield,
+j,2.9,Midfield,X
 k,2.85,Defence,V
 l,3.04,Midfield,
 m,2.76,Attack,V
@@ -32,4 +32,4 @@ ee,3.53,Midfield,X
 ff,2.73,Defence,X
 gg,3,Defence,X
 hh,4.66,Midfield,X
-ii,3.5,Attack,True,6,4
+ii,3.5,Attack,X,6,4

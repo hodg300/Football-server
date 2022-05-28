@@ -30,15 +30,15 @@ class PlayerController:
             member = player['Member']
             p = Player(name, ranking, position, member)
             self.all_players.append(p)
-        self.all_players.sort(key=lambda x: x.ranking, reverse=True)
+        self.all_players.sort(key=lambda x: x.Ranking, reverse=True)
 
     def fillWeeklyPlayers(self, weekly_players:list = []):
         i = 0
         for wp_name in weekly_players:
             for p in self.all_players:
-                if str(wp_name) == p.name:
+                if str(wp_name) == p.Name:
                     self.weekly_players.append(p)
-        self.weekly_players.sort(key=lambda x: x.ranking, reverse=True)
+        self.weekly_players.sort(key=lambda x: x.Ranking, reverse=True)
 
     def get_players_in_level(self, level):
         # in case there is no level 7 because team is only 6
@@ -52,16 +52,18 @@ class PlayerController:
     def delete_player(self, name) -> bool:
         success = self.db_accessor.delete_player(name)
         if success:
-            self.load_players()
+            for p in self.all_players:
+                if p.Name == name:
+                    self.all_players.remove(p)
         return success
 
     def get_all_players(self):  # noqa: E501
         players_db = {}
         playerID = 1
-        for player in self.db_accessor.db.json_data.values():
+        for p in self.all_players:
             players_db[playerID] = {}
-            players_db[playerID]['name'] = player['Name']
-            players_db[playerID]['isMember'] = player['Member']
+            players_db[playerID]['name'] = p.Name
+            players_db[playerID]['isMember'] = p.IsMember
             playerID += 1
         return json.loads(json.dumps(players_db, indent=4))
 
@@ -71,7 +73,10 @@ class PlayerController:
         :type name: str
         :rtype: Player
         """
-        return self.db_accessor.db.json_data[name]
+        for p in self.all_players:
+            if p.Name == name:
+                return json.loads(json.dumps(p, default=lambda o: o.__dict__, sort_keys=True, indent=4))
+        return {}
 
 
     def add_player(self, player_json):
@@ -81,14 +86,17 @@ class PlayerController:
         :rtype: None
         """
         player = json.loads(player_json)
-        name = player['name']
-        ranking = player['ranking']
-        position = player['position']
-        member = player['isMember']
+        try:
+            name = player['name']
+            ranking = player['ranking']
+            position = player['position']
+            member = player['isMember']
+        except KeyError:
+            return False
         p = Player(name, ranking, position, member)
         self.all_players.append(p)
         self.db_accessor.add_player(player)
-        return
+        return True
 
     def change_to_dict(self, player):
         return json.dumps(player, default=lambda o: o.__dict__,
@@ -98,7 +106,7 @@ class PlayerController:
 
     def print_player(self, p, color='BLUE'):
         t = "Player [%s] in position [%s] with level [%s] will be goalkeeper number: [%d]" % (
-        p.name, p.position, p.ranking, p.goalkeeper)
+            p.name, p.position, p.ranking, p.goalkeeper)
         self.print_color(t, color)
 
     def print_color(self, t, color):

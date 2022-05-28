@@ -44,18 +44,18 @@ class TeamsController:
         i = 0
         self.player_con.players_levels = {}
         for p in self.player_con.weekly_players:
-            p.grade_this_week = int(i / len(self._teams)) + 1
-            if p.grade_this_week not in self.player_con.players_levels.keys():
-                self.player_con.players_levels[p.grade_this_week] = []
-            self.player_con.players_levels[p.grade_this_week].append(p)
+            p.GradeThisWeek = int(i / len(self._teams)) + 1
+            if p.GradeThisWeek not in self.player_con.players_levels.keys():
+                self.player_con.players_levels[p.GradeThisWeek] = []
+            self.player_con.players_levels[p.GradeThisWeek].append(p)
             i += 1
 
     def get_biggest_team(self):
         pprint.pprint(self._teams)
-        big_team = len(self._teams["1"].players)
+        big_team = len(self._teams["1"].Players)
         for name, team in self._teams.items():
-            if len(team.players) > big_team:
-                big_team = len(team.players)
+            if len(team.Players) > big_team:
+                big_team = len(team.Players)
         return big_team
 
     def get_min_value_team(self):
@@ -63,7 +63,7 @@ class TeamsController:
         min_team = "1"
         for name, team in self._teams.items():
             if team.team_level < min_level:
-                min_level = team.team_level
+                min_level = team.Team_level
                 min_team = name
         return min_team
 
@@ -77,19 +77,19 @@ class TeamsController:
                 team = self.get_min_value_team()
                 self._teams[team].team_level += float(player.ranking)
                 self._teams[team].players.append(player)
-                if player.position.lower() == "defence":
-                    self._teams[team].defence = True
-                if player.position.lower() == "attack":
-                    self._teams[team].attack = True
+                if player.Position.lower() == "defence":
+                    self._teams[team].Defence = True
+                if player.Position.lower() == "attack":
+                    self._teams[team].Attack = True
         self.create_GK()
 
     def validate_teams(self):
         scores = []
         players = []
         for name, team in self._teams.items():
-            scores.append(team.team_level)
-            players.append(len(team.players))
-            if not (team.attack and team.defence):
+            scores.append(team.Team_level)
+            players.append(len(team.Players))
+            if not (team.Attack and team.Defence):
                 print("Need at least 1 offence and 1 defence player. try again.")
                 return False
 
@@ -144,7 +144,7 @@ class TeamsController:
         for name, team in self._teams.items():
             print("TEAM [%s] total level is: [%s] and the players are:" % (name, team.team_level))
             for p in team.players:
-                print(p.name)
+                print(p.Name)
             print("-------------------------------------------------------------- \n")
 
     def teams_to_JSON(self):

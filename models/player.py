@@ -11,34 +11,34 @@ class Player:
 
         :param name: The name of this Player.  # noqa: E501
         :type name: str
-        :param real_rating: The real_rating of this Player.  # noqa: E501
-        :type real_rating: float
-        :param grade_this_week: The grade_this_week of this Player.  # noqa: E501
-        :type grade_this_week: float
+        :param ranking: The real_rating of this Player.  # noqa: E501
+        :type ranking: float
+        :param gradeThisWeek: The grade_this_week of this Player.  # noqa: E501
+        :type gradeThisWeek: float
         :param position: The position of this Player.  # noqa: E501
         :type position: str
-        :param is_member: The is_member of this Player.  # noqa: E501
-        :type is_member: bool
+        :param isMember: The is_member of this Player.  # noqa: E501
+        :type isMember: bool
         """
-        self._name = name
-        self._ranking = ranking
-        self._grade_this_week = 0
-        self._gk = 0
-        self._position = position
-        self._is_member = is_member
+        self.name = name
+        self.ranking = ranking
+        self.gradeThisWeek = 0
+        self.goalkeeper = 0
+        self.position = position
+        self.isMember = is_member
 
     @property
-    def name(self) -> str:
+    def Name(self) -> str:
         """Gets the name of this Player.
 
 
         :return: The name of this Player.
         :rtype: str
         """
-        return self._name
+        return self.name
 
-    @name.setter
-    def name(self, name: str):
+    @Name.setter
+    def Name(self, p_name: str):
         """Sets the name of this Player.
 
 
@@ -46,20 +46,20 @@ class Player:
         :type name: str
         """
 
-        self._name = name
+        self.name = p_name
 
     @property
-    def ranking(self) -> float:
+    def Ranking(self) -> float:
         """Gets the ranking of this Player.
 
 
         :return: The ranking of this Player.
         :rtype: float
         """
-        return self._ranking
+        return self.ranking
 
-    @ranking.setter
-    def ranking(self, ranking: float):
+    @Ranking.setter
+    def Ranking(self, ranking: float):
         """Sets the ranking of this Player.
 
 
@@ -67,20 +67,20 @@ class Player:
         :type ranking: float
         """
 
-        self._ranking = ranking
+        self.ranking = ranking
 
     @property
-    def grade_this_week(self) -> int:
+    def GradeThisWeek(self) -> int:
         """Gets the grade_this_week of this Player.
 
 
         :return: The grade_this_week of this Player.
         :rtype: float
         """
-        return self._grade_this_week
+        return self.gradeThisWeek
 
-    @grade_this_week.setter
-    def grade_this_week(self, grade_this_week: int):
+    @GradeThisWeek.setter
+    def GradeThisWeek(self, grade_this_week: int):
         """Sets the grade_this_week of this Player.
 
 
@@ -88,20 +88,20 @@ class Player:
         :type grade_this_week: float
         """
 
-        self._grade_this_week = grade_this_week
+        self.gradeThisWeek = grade_this_week
 
     @property
-    def goalkeeper(self) -> int:
+    def Goalkeeper(self) -> int:
         """Gets the grade_this_week of this Player.
 
 
         :return: The grade_this_week of this Player.
         :rtype: float
         """
-        return self._gk
+        return self.goalkeeper
 
-    @goalkeeper.setter
-    def goalkeeper(self, goalkeeper: int):
+    @Goalkeeper.setter
+    def Goalkeeper(self, goalkeeper: int):
         """Sets the grade_this_week of this Player.
 
 
@@ -109,20 +109,20 @@ class Player:
         :type grade_this_week: float
         """
 
-        self._gk = goalkeeper
+        self.goalkeeper = goalkeeper
 
     @property
-    def position(self) -> str:
+    def Position(self) -> str:
         """Gets the position of this Player.
 
 
         :return: The position of this Player.
         :rtype: str
         """
-        return self._position
+        return self.position
 
-    @position.setter
-    def position(self, position: str):
+    @Position.setter
+    def Position(self, position: str):
         """Sets the position of this Player.
 
 
@@ -136,20 +136,20 @@ class Player:
                 .format(position, allowed_values)
             )
 
-        self._position = position
+        self.position = position
 
     @property
-    def is_member(self) -> bool:
+    def IsMember(self) -> bool:
         """Gets the is_member of this Player.
 
 
         :return: The is_member of this Player.
         :rtype: bool
         """
-        return self._is_member
+        return self.isMember
 
-    @is_member.setter
-    def is_member(self, is_member: bool):
+    @IsMember.setter
+    def IsMember(self, is_member: bool):
         """Sets the is_member of this Player.
 
 
@@ -157,4 +157,4 @@ class Player:
         :type is_member: bool
         """
 
-        self._is_member = is_member
+        self.isMember = is_member
