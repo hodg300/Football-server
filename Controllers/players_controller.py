@@ -20,6 +20,12 @@ class PlayerController:
         for player in self.all_players:
             del player
         self.all_players = []
+        self.__clear_weekly_players()
+
+    def __clear_weekly_players(self):
+        for player in self.weekly_players:
+            del player
+        self.weekly_players = []
 
     def load_players(self):
         self.clear()
@@ -33,6 +39,7 @@ class PlayerController:
         self.all_players.sort(key=lambda x: x.Ranking, reverse=True)
 
     def fillWeeklyPlayers(self, weekly_players:list = []):
+        self.__clear_weekly_players()
         i = 0
         for wp_name in weekly_players:
             for p in self.all_players:
