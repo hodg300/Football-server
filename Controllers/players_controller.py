@@ -100,8 +100,11 @@ class PlayerController:
             member = player['isMember']
         except KeyError:
             return False
-        p = Player(name, ranking, position, member)
-        self.all_players.append(p)
+        new_player = Player(name, ranking, position, member)
+        for p in self.all_players:
+            if p.Name == new_player.Name:
+                self.delete_player(name)
+        self.all_players.append(new_player)
         self.db_accessor.add_player(player)
         return True
 

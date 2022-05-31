@@ -16,7 +16,6 @@ David Dimus,2.75,Midfield,V
 Igal,2.46,Attack,V
 Illan,2.56,Midfield,V
 Edi,2.5,Defence,V
-Nir,1.97,Attack,V
 Yoav Mitfid,1.8,Midfield,
 Hod,3.94,Midfield,V
 Hagai,4.1,Midfield,
@@ -32,4 +31,5 @@ Itay zamir,3.53,Midfield,X
 nati minyan,2.73,Defence,X
 naor elgaza,3,Defence,X
 gal yaar,4.66,Midfield,X
-test,3.5,Attack,True,6,4
+test,4,Attack,V,6,4
+Nir,1.98,Attack,V,6,4

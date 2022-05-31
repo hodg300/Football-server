@@ -56,7 +56,7 @@ class Player:
         :return: The ranking of this Player.
         :rtype: float
         """
-        return self.ranking
+        return float(self.ranking)
 
     @Ranking.setter
     def Ranking(self, ranking: float):
@@ -67,7 +67,7 @@ class Player:
         :type ranking: float
         """
 
-        self.ranking = ranking
+        self.ranking = float(ranking)
 
     @property
     def GradeThisWeek(self) -> int:
