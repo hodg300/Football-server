@@ -6,8 +6,7 @@ from PlayersDB.CSV_handler import CSVHandler
 class DBAccessor:
 
     def __init__(self):
-        csv_file =  op.join(op.dirname(op.realpath(__file__)),"PlayersDB","Players.csv")
-        self.db = CSVHandler(csv_file)
+        self.db = CSVHandler()
 
     def delete_player(self, player_name: str) -> bool:
         return self.db.delete_item(player_name)
