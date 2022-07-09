@@ -4,11 +4,11 @@ from PlayersDB.base_handler import BaseHandlerInterface
 import os.path as op
 from pprint import pp
 
-class CSVHandler(BaseHandlerInterface):
+class GoogleSheetHandler(BaseHandlerInterface):
 
-    def __init__(self):
+    def __init__(self, path_to_file: str=""):
         super().__init__()
-        self._file_path = op.join(op.dirname(op.realpath(__file__)),"Players.csv")
+        self._file_path = path_to_file
         self._csv_data = None
         self.__update_json_data()
         self.__update_csv_data()

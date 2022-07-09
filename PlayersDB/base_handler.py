@@ -30,12 +30,3 @@ class BaseHandlerInterface(ABC):
         :return: Added
         """
         pass
-
-    @abstractmethod
-    def add_item(self, item: list = None) -> None:
-        """
-
-        :param item: item to add as list
-        :return: Added
-        """
-        pass
