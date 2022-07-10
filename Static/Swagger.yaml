@@ -74,6 +74,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Player'
+        "400":
+          description: User not found
     delete:
       tags:
       - Player
@@ -146,6 +148,8 @@ components:
           - Defence
         isMember:
           type: boolean
+        isArrive:
+          type: boolean
         gradeThisWeek:
           type: number
           format: int
@@ -157,8 +161,9 @@ components:
         ranking: 3.5
         position: Attack
         isMember: true
-        gradeThisWeek: 6
-        goalkeeper: 4
+        isArrive: false
+        gradeThisWeek: 0
+        goalkeeper: 0
     Team:
       type: object
       properties:
@@ -178,8 +183,8 @@ components:
       properties:
         name:
           type: string
-        isMember:
+        isArrive:
           type: boolean
       example:
         name: name
-        isMember: true
+        isArrive: true
