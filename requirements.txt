@@ -1,4 +1,6 @@
 connexion~=2.13.1
 six~=1.16.0
 Flask~=2.1.2
-gunicorn~=20.0.4
+gspread~=5.4.0
+oauth2client~=4.1.3
+google-api-python-client~=2.52.0
