@@ -1,35 +1,42 @@
 Name,Ranking,Position,Member
-Daniel Ben Haim,4.53,Attack,V
-Zakuta,4.31,Attack,V
-David Biton,3.84,Defence,V
-Assaf Zachar,3.85,Defence,V
-Talmi,3.69,Midfield,V
-Dor Tzafrir,3.78,Midfield,V
-Refael,3.35,Defence,V
-Lankri,3.19,Defence,V
-Niv poleg,3.22,Defence,V
-Asaf Geva,2.9,Midfield,
-Shoko,2.85,Defence,V
-Kobi,3.04,Midfield,
-Ori Shimon,2.76,Attack,V
-David Dimus,2.75,Midfield,V
-Igal,2.46,Attack,V
-Illan,2.56,Midfield,V
-Edi,2.5,Defence,V
-Yoav Mitfid,1.8,Midfield,
-Hod,3.94,Midfield,V
-Hagai,4.1,Midfield,
-Adir frenkel,3.71,Attack,V
-Jenia,3.38,Defence,V
-Itay Shalev,3.31,Midfield,V
-Raz,3.47,Attack,X
-Goalkeeper,3,Defence,X
-Shahar Kail,2.26,Defence,X
-omri eliyau,2.8,Attack,X
-yuval dahan,2.8,Midfield,X
-Itay zamir,3.53,Midfield,X
-nati minyan,2.73,Defence,X
-naor elgaza,3,Defence,X
-gal yaar,4.66,Midfield,X
-test,4,Attack,V,6,4
-Nir,1.98,Attack,V,6,4
+daniel ben haim,4.53,Attack,V
+ran zakuta,4.32,Attack,V
+hod gohasi,4.03,Midfield,V
+dor zafrir,3.91,Midfield,V
+david biton,3.71,Defence,V
+omer talmi,3.68,Midfield,V
+itay zamir,3.64,Midfield,X
+jenia B,3.59,Defence,V
+niv poleg,3.56,Midfield,V
+adir frenkel,3.55,Attack,V
+asaf zachar,3.47,Defence,V
+itay shalev,3.47,Midfield,V
+refael shoam,3.33,Defence,V
+kobi pando,3.24,Defence,V
+niran hayek,3.16,Defence,V
+idan lankri,2.91,Defence,V
+kfir shoko,2.82,Defence,V
+ori shimon,2.69,Attack,V
+igal cohen,2.38,Attack,V
+edi vinichki,2.32,Defence,V
+shahar kail,2.18,Defence,V
+nir lahav,2.09,Attack,V
+hagay viloga,3.77,Midfield,X
+raz lahav,3.47,Attack,X
+yossi hakikat,3.45,Defence,X
+yoni kapoler,3.25,Midfield,X
+yuval dahan,2.92,Midfield,X
+naor elgaza,2.91,Midfield,X
+itay yefet,2.89,Midfield,X
+boris barigin,2.85,Midfield,X
+ilan mindel,2.82,Midfield,X
+david dimos,2.81,Midfield,X
+omri eliyaho,2.80,Midfield,X
+nati minyan,2.70,Defence,X
+oren bay,2.65,Midfield,X
+david pogosian,2.20,Defence,X
+ran cohen,2.09,Defence,X
+yoav zafrir,1.84,Midfield,X
+michaelle ligioner,3.00,Attack,X
+yaron ligioner,2.50,Defence,X
+kosta,3.0,Midfield,X
