@@ -21,7 +21,7 @@ class GoogleSheetHandler(BaseHandlerInterface):
         if (op.exists(credentialsPath)):
             creds = ServiceAccountCredentials.from_json_keyfile_name(credentialsPath, SCOPE)
         else:
-            creds = ServiceAccountCredentials.from_json_keyfile_dict(os.environ['GOOGLE_APPLICATION_CREDENTIALS'], SCOPE)
+            creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_APPLICATION_CREDENTIALS']), SCOPE)
         # credentialsPath = op.join(op.dirname(__file__),'credentials.json')
 
         # authorize the clientsheet
