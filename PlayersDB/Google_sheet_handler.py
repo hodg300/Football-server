@@ -17,7 +17,7 @@ class GoogleSheetHandler(BaseHandlerInterface):
         super().__init__()
 
         # add credentials to the account
-        credentialsPath = op.join(op.dirname(__file__),'credentials.json')
+        credentialsPath = op.join(op.dirname(__file__), '.env')
         creds = ServiceAccountCredentials.from_json_keyfile_name(credentialsPath, SCOPE)
         # authorize the clientsheet
         self.client = gspread.authorize(creds)

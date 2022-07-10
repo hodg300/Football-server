@@ -1,7 +1,7 @@
 ### Python template
 
 #credentials
-*credentials.*
+PlayersDB/.env
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
