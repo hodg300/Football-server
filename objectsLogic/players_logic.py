@@ -43,9 +43,10 @@ class PlayerController:
     def fillWeeklyPlayers(self, weekly_players:list = []):
         self.__clear_weekly_players()
         i = 0
-        for p in self.all_players:
-            if p.IsArrive:
-                self.weekly_players.append(p)
+        for wp_name in weekly_players:
+            for p in self.all_players:
+                if str(wp_name) == p.Name:
+                    self.weekly_players.append(p)
         self.weekly_players.sort(key=lambda x: x.Ranking, reverse=True)
         if len(self.weekly_players) is not NUMBER_OF_PLAYERS:
             return False
