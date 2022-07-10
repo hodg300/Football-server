@@ -6,7 +6,7 @@ class Player:
 
     Do not edit the class manually.
     """
-    def __init__(self, name: str=None, ranking: float=None, position: str=None, is_member: bool=None):  # noqa: E501
+    def __init__(self, name: str=None, ranking: float=None, position: str=None, is_member: bool=None, is_arrive: bool=False):  # noqa: E501
         """Player - a model defined in Swagger
 
         :param name: The name of this Player.  # noqa: E501
@@ -26,6 +26,8 @@ class Player:
         self.goalkeeper = 0
         self.position = position
         self.isMember = is_member
+        self.isArrive = is_arrive
+
 
     @property
     def Name(self) -> str:
@@ -158,3 +160,24 @@ class Player:
         """
 
         self.isMember = is_member
+
+    @property
+    def IsArrive(self) -> bool:
+        """Gets the is_member of this Player.
+
+
+        :return: The is_member of this Player.
+        :rtype: bool
+        """
+        return self.isArrive
+
+    @IsArrive.setter
+    def IsArrive(self, is_arrive: bool):
+        """Sets the is_member of this Player.
+
+
+        :param is_member: The is_member of this Player.
+        :type is_member: bool
+        """
+
+        self.isArrive = is_arrive
