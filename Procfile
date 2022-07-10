@@ -1,1 +1,1 @@
-web:gunicorn football_server:app
+web: gunicorn football_server:app
