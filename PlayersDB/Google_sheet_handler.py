@@ -17,11 +17,13 @@ class GoogleSheetHandler(BaseHandlerInterface):
         super().__init__()
 
         # add credentials to the account
-        # credentialsPath = op.join(op.dirname(__file__), '.env')
-        # creds = ServiceAccountCredentials.from_json_keyfile_name(credentialsPath, SCOPE)
-
+        credentialsPath = op.join(op.dirname(__file__), '.env')
+        if (op.exists(credentialsPath)):
+            creds = ServiceAccountCredentials.from_json_keyfile_name(credentialsPath, SCOPE)
+        else:
+            creds = ServiceAccountCredentials.from_json(os.environ['GOOGLE_APPLICATION_CREDENTIALS'], SCOPE)
         # credentialsPath = op.join(op.dirname(__file__),'credentials.json')
-        creds = ServiceAccountCredentials.from_json(os.environ['GOOGLE_APPLICATION_CREDENTIALS'], SCOPE)
+
         # authorize the clientsheet
         self.client = gspread.authorize(creds)
 
