@@ -61,7 +61,10 @@ def get_player_by_name(name):  # noqa: E501
 
     :rtype: Player
     """
-    return jsonify(football.get_player_by_name(name)), 200
+    jsonData = football.get_player_by_name(name)
+    if jsonData != {}:
+        return jsonify(football.get_player_by_name(name)), 200
+    return jsonify(create_response("Cannot find player")), 400
 
 @app.route('/player',methods = ['POST'])
 def add_player():
@@ -91,7 +94,8 @@ def get_teams():
     if request.data:
         body = request.get_data()  # noqa: E501
         data = football.get_teams(body)
-        return jsonify(data), 201
+        if data:
+            return jsonify(data), 201
     return jsonify(create_response("Cannot create teams, please check the data")), 400
 
 if __name__ == '__main__':

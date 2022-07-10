@@ -6,9 +6,9 @@ from pprint import pp
 
 class CSVHandler(BaseHandlerInterface):
 
-    def __init__(self, path_to_file: str=""):
+    def __init__(self):
         super().__init__()
-        self._file_path = path_to_file
+        self._file_path = op.join(op.dirname(op.realpath(__file__)),"Players.csv")
         self._csv_data = None
         self.__update_json_data()
         self.__update_csv_data()
@@ -61,7 +61,7 @@ class CSVHandler(BaseHandlerInterface):
             self.__update_csv_data()
         return deleted
 
-    def add_item(self, item : dict=None) ->  None:
+    def add_item(self, item : list=None) ->  None:
         values = list(item.values())
         with open(self._file_path, 'a+', newline='') as writeFile:
             writer = csv.writer(writeFile)
