@@ -6,7 +6,7 @@ import random
 from models.team import Team
 from models.player import Player
 from DB_accessor import DBAccessor
-from Controllers.players_controller import PlayerController
+from objectsLogic.players_logic import PlayerController
 
 COLORS = ['RED', 'BLUE', 'GREEN']
 MAX_DIFF_BETWEEN_EQUAL_TEAMS = 0.5

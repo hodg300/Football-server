@@ -3,8 +3,8 @@ import os
 import csv
 import json
 import pprint
-from Controllers.players_controller import PlayerController
-from Controllers.teams_controller import TeamsController
+from objectsLogic.players_logic import PlayerController
+from objectsLogic.teams_logic import TeamsController
 import os.path as path
 
 COLORS = ['RED', 'BLUE', 'GREEN']
@@ -44,7 +44,8 @@ class FootballManager:
         :return: json of 3 teams
         """
         weekly_players = json.loads(players)
-        self.player_con.fillWeeklyPlayers(weekly_players.values())
+        if not self.player_con.fillWeeklyPlayers(weekly_players.values()):
+            return None
         self.teams_con.create_gorups()
         retry = 0
         while not self.teams_con.validate_teams() and retry < 100:
