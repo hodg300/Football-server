@@ -7,6 +7,7 @@ class Player:
         role = Attack/Midfield/Defence
         GK = when he will be GK
         isMember = does this member bought a membership
+        is_arrive = does this player comes this week
         """
         self.name = ""
         self.real_level = 2.5
@@ -14,6 +15,7 @@ class Player:
         self.role = ""
         self.gk = 1
         self.is_member = False
+        self.is_arrive = False
 
 
 class Team:

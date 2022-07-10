@@ -61,7 +61,7 @@ class CSVHandler(BaseHandlerInterface):
             self.__update_csv_data()
         return deleted
 
-    def add_item(self, item : dict=None) ->  None:
+    def add_item(self, item : list=None) ->  None:
         values = list(item.values())
         with open(self._file_path, 'a+', newline='') as writeFile:
             writer = csv.writer(writeFile)
