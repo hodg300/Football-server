@@ -65,7 +65,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"test\",\r\n  \"ranking\": 3.5,\r\n  \"position\": \"Attack\",\r\n  \"isMember\": true,\r\n  \"gradeThisWeek\": 6,\r\n  \"goalkeeper\": 4\r\n}",
+					"raw": "{\r\n  \"name\": \"Tova\",\r\n  \"ranking\": 1.98,\r\n  \"position\": \"Attack\",\r\n  \"isMember\": \"true\",\r\n  \"gradeThisWeek\": 6,\r\n  \"goalkeeper\": 4\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -119,7 +119,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"1\": \"a\",\r\n    \"2\": \"b\",\r\n    \"3\":\"c\",\r\n    \"4\":\"d\",\r\n    \"5\":\"e\",\r\n    \"6\":\"f\",\r\n    \"7\":\"g\",\r\n    \"8\":\"h\",\r\n    \"9\":\"i\",\r\n    \"10\":\"j\",\r\n    \"11\":\"k\",\r\n    \"12\":\"l\",\r\n    \"13\":\"m\",\r\n    \"14\":\"n\",\r\n    \"15\":\"o\",\r\n    \"16\":\"p\",\r\n    \"17\":\"q\",\r\n    \"18\":\"r\",\r\n    \"19\":\"s\",\r\n    \"20\":\"t\",\r\n    \"21\":\"u\"\r\n}",
+					"raw": "{\r\n    \"1\": \"dor zafrir\", \r\n    \"2\": \"omer talmi\", \r\n    \"3\": \"jenia B\", \r\n    \"4\": \"niv poleg\", \r\n    \"5\": \"adir frenkel\", \r\n    \"6\": \"asaf zachar\",\r\n    \"7\": \"itay shalev\", \r\n    \"8\": \"refael shoham\", \r\n    \"9\": \"kobi pando\", \r\n    \"10\": \"niran hayek\", \r\n    \"11\": \"idan lankri\",\r\n    \"12\": \"igal cohen\", \r\n    \"13\": \"edi vinitski\", \r\n    \"14\": \"shahar kail\", \r\n    \"15\": \"nir lahav\", \r\n    \"16\": \"yoval dahann\", \r\n    \"17\": \"naor elgaza\", \r\n    \"18\": \"kosta\", \r\n    \"19\": \"ran zakuta\", \r\n    \"20\": \"hod gohasi\", \r\n    \"21\": \"david biton\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
