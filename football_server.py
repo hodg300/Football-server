@@ -32,6 +32,8 @@ def get_all_players():  # noqa: E501
      # noqa: E501
     :rtype: List[InlineResponse200]
     """
+    print("get_all_players CALLED")
+
     if (request.method == 'GET'):
         return jsonify(football.get_all_players()), 200
 
@@ -46,6 +48,8 @@ def delete_player(name):  # noqa: E501
 
     :rtype: None
     """
+    print("delete_player CALLED")
+
     if football.delete_player(name):
         return jsonify(create_response("Player deleted successfully")), 204
     return jsonify(create_response("Cannot find player")), 400
@@ -61,6 +65,7 @@ def get_player_by_name(name):  # noqa: E501
 
     :rtype: Player
     """
+    print("get_player_by_name CALLED")
     jsonData = football.get_player_by_name(name)
     if jsonData != {}:
         return jsonify(football.get_player_by_name(name)), 200
@@ -77,6 +82,8 @@ def add_player():
 
     :rtype: None
     """
+    print("add_player CALLED")
+
     if request.data:
         body = request.get_data()  # noqa: E501
         if football.add_player(body):
@@ -91,6 +98,7 @@ def get_teams():
 
     :rtype: List[Team]
     """
+    print("get_teams CALLED")
     if request.data:
         body = request.get_data()  # noqa: E501
         data = football.get_teams(body)
