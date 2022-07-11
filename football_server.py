@@ -8,6 +8,7 @@ football = FootballManager()
 
 @app.route('/')
 def home():
+    print("READY!")
     return "Ready to shuffle!"
 
 def create_response(messege: str) -> json:
@@ -102,7 +103,7 @@ def get_teams():
     if request.data:
         body = request.get_data()  # noqa: E501
         data = football.get_teams(body)
-        if data:
+        if len(data) != 0:
             return jsonify(data), 201
     return jsonify(create_response("Cannot create teams, please check the data")), 400
 

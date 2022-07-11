@@ -16,7 +16,6 @@ class FootballManager:
     def __init__(self):
         self.player_con = PlayerController()
         self.teams_con = TeamsController(self.player_con)
-        self.player_con.load_players()
 
     def who_play_first(self):
         first = random.choice(list(self.teams_con.teams.keys()))
@@ -37,7 +36,7 @@ class FootballManager:
     def add_player(self, player):
         return self.player_con.add_player(player)
 
-    def get_teams(self, players: dict) -> dict:
+    def get_teams(self, players) -> dict:
         """
 
         :param players: players to shuffle
@@ -45,7 +44,7 @@ class FootballManager:
         """
         weekly_players = json.loads(players)
         if not self.player_con.fillWeeklyPlayers(weekly_players.values()):
-            return None
+            return {}
         self.teams_con.create_gorups()
         retry = 0
         while not self.teams_con.validate_teams() and retry < 100:

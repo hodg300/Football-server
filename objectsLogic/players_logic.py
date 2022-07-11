@@ -15,7 +15,6 @@ class PlayerController:
         self.weekly_players = []
         self.all_players = []
         self.players_levels = {}
-        self.load_players()
 
     def clear(self):
         for player in self.all_players:
@@ -30,6 +29,7 @@ class PlayerController:
 
     def load_players(self):
         self.clear()
+        self.db_accessor.read_updated_data()
         for player in self.db_accessor.db.json_data.values():
             name = player['Name']
             ranking = player['Ranking']
@@ -42,7 +42,6 @@ class PlayerController:
 
     def fillWeeklyPlayers(self, weekly_players:list = []):
         self.__clear_weekly_players()
-        i = 0
         for wp_name in weekly_players:
             for p in self.all_players:
                 if str(wp_name) == p.Name:
@@ -72,6 +71,7 @@ class PlayerController:
     def get_all_players(self):  # noqa: E501
         players_db = {}
         playerID = 1
+        self.load_players()
         for p in self.all_players:
             players_db[playerID] = {}
             players_db[playerID]['name'] = p.Name

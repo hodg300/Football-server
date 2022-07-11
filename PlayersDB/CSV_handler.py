@@ -10,14 +10,13 @@ class CSVHandler(BaseHandlerInterface):
         super().__init__()
         self._file_path = op.join(op.dirname(op.realpath(__file__)),"Players.csv")
         self._csv_data = None
-        self.__update_json_data()
         self.__update_csv_data()
 
     def __update_csv_data(self):
         players_file = open(self._file_path, "r")
         self._csv_data = csv.reader(players_file)
 
-    def __update_json_data(self):
+    def update_json_data(self):
         players_file = open(self._file_path, "r", encoding="utf8")
         json_data = csv.DictReader(players_file)
         data = {}
@@ -57,7 +56,7 @@ class CSVHandler(BaseHandlerInterface):
                 writer = csv.writer(writeFile)
                 writer.writerows(data)
                 writeFile.close()
-            self.__update_json_data()
+            self.update_json_data()
             self.__update_csv_data()
         return deleted
 
@@ -67,7 +66,7 @@ class CSVHandler(BaseHandlerInterface):
             writer = csv.writer(writeFile)
             writer.writerow(values)
             writeFile.close()
-        self.__update_json_data()
+        self.update_json_data()
         self.__update_csv_data()
 
 if __name__ == "__main__":

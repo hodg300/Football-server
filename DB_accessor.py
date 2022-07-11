@@ -18,6 +18,9 @@ class DBAccessor:
     def get_players_data(self):
         return self.db.json_data
 
+    def read_updated_data(self):
+        return self.db.update_json_data()
+
 
 if __name__ == "__main__":
     db = DBAccessor()

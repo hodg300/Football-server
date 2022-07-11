@@ -14,11 +14,20 @@ class BaseHandlerInterface(ABC):
         return self._json_data
 
     @abstractmethod
+    def update_json_data(self) -> None:
+        """
+
+        :param key: key of data to remove
+        :return: if item was deleted successfully
+        """
+        pass
+
+    @abstractmethod
     def delete_item(self, key: str = None) -> bool:
         """
 
         :param key: key of data to remove
-        :return: if item was deleted seccesfully
+        :return: if item was deleted successfully
         """
         pass
 
