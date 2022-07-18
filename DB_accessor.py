@@ -7,7 +7,8 @@ from PlayersDB.Google_sheet_handler import GoogleSheetHandler
 class DBAccessor:
 
     def __init__(self):
-        self.db = GoogleSheetHandler()
+        #self.db = GoogleSheetHandler()
+        self.db = CSVHandler()
 
     def delete_player(self, player_name: str) -> bool:
         return self.db.delete_item(player_name)
