@@ -1,4 +1,4 @@
-import os.path as op
+import os
 from pprint import pprint as pp
 # test
 from PlayersDB.CSV_handler import CSVHandler
@@ -7,8 +7,10 @@ from PlayersDB.Google_sheet_handler import GoogleSheetHandler
 class DBAccessor:
 
     def __init__(self):
-        #self.db = GoogleSheetHandler()
-        self.db = CSVHandler()
+        if 'LOCAL_DB' in os.environ:
+            self.db = CSVHandler()
+        else:
+            self.db = GoogleSheetHandler()
 
     def delete_player(self, player_name: str) -> bool:
         return self.db.delete_item(player_name)
