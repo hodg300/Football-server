@@ -1,13 +1,10 @@
 from flask import Flask, jsonify, render_template, send_from_directory,request
-from flask_cors import CORS, cross_origin
 from football import FootballManager
 import json
 import os
 
 app = Flask(__name__, template_folder='templates')
 football = FootballManager()
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def home():
