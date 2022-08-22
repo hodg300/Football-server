@@ -76,6 +76,7 @@ class PlayerController:
             players_db[playerID] = {}
             players_db[playerID]['name'] = p.Name
             players_db[playerID]['isArrive'] = p.IsArrive
+            players_db[playerID]['ranking'] = p.ranking
             playerID += 1
         return json.loads(json.dumps(players_db, indent=4))
 
