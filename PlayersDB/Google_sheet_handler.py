@@ -28,7 +28,7 @@ class GoogleSheetHandler(BaseHandlerInterface):
         self.client = gspread.authorize(creds)
 
     def update_json_data(self):
-        sheet = self.client.open('MondayFootball')
+        sheet = self.client.open('MondayFootballSheet')
         sheet_instance = sheet.get_worksheet(0)
         records_data = sheet_instance.get_all_records()
         data = {}
