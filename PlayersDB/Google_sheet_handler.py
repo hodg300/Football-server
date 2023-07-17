@@ -23,6 +23,7 @@ class GoogleSheetHandler(BaseHandlerInterface):
         else:
             creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(os.environ['GOOGLE_APPLICATION_CREDENTIALS']), SCOPE)
         # credentialsPath = op.join(op.dirname(__file__),'credentials.json')
+        print(f"{creds=}")
 
         # authorize the clientsheet
         self.client = gspread.authorize(creds)
