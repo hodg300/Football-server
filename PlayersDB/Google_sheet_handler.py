@@ -49,7 +49,7 @@ class GoogleSheetHandler(BaseHandlerInterface):
         pass
 
     def add_item(self, item : list=None) ->  None:
-        sheet = self.client.open('MondayFootball')
+        sheet = self.client.open('MondayFootballSheet')
         sheet_instance = sheet.get_worksheet(0)
         sheet_instance.insert_rows(item)
 
