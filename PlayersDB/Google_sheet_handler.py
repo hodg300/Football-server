@@ -29,7 +29,7 @@ class GoogleSheetHandler(BaseHandlerInterface):
         self.client = gspread.authorize(creds)
 
     def update_json_data(self):
-        sheet = self.client.open('MondayFootballSheet')
+        sheet = self.client.open_by_key('MondayFootballSheet')
         sheet_instance = sheet.get_worksheet(0)
         records_data = sheet_instance.get_all_records()
         data = {}
@@ -50,7 +50,7 @@ class GoogleSheetHandler(BaseHandlerInterface):
         pass
 
     def add_item(self, item : list=None) ->  None:
-        sheet = self.client.open('MondayFootballSheet')
+        sheet = self.client.open_by_key('MondayFootballSheet')
         sheet_instance = sheet.get_worksheet(0)
         sheet_instance.insert_rows(item)
 
