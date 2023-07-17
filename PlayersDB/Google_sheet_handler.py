@@ -9,7 +9,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 # define the scope
 
-SCOPE = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+SCOPE = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/spreadsheets']
 
 class GoogleSheetHandler(BaseHandlerInterface):
 
